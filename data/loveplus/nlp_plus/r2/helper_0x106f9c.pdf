@@ -1,0 +1,54 @@
+┌ 136: fcn.00106f9c (int32_t arg_20h);
+│ `- args()
+│      ╎╎   0x00106f9c      3040           ands r0, r6
+│      ╎╎   0x00106f9e      2de914d0       unaligned
+│     ┌───< 0x00106fa2      4de2           unaligned
+│     │╎╎   0x00106fa4      2050           str r0, [r4, r0]
+│    ┌────< 0x00106fa6      8de2           unaligned
+│    ││╎╎   0x00106fa8      0040           ands r0, r0
+│   ┌─────< 0x00106faa      a0e1           unaligned
+│   │││╎╎   0x00106fac      0110           asrs r1, r0, 0x20
+│   │││╎╎   0x00106fae      95e87050       unaligned
+│   │││╎└─< 0x00106fb2      9fe5           unaligned
+│   │││╎    0x00106fb4      0000           movs r0, r0
+│   │││╎┌─< 0x00106fb6      50e3           unaligned
+│   │││╎│   0x00106fb8      6400           lsls r4, r4, 1
+│   │││╎│   0x00106fba      9f05           unaligned
+│   │││╎│   0x00106fbc      9800           lsls r0, r3, 2
+│   │││╎│   0x00106fbe      d005           unaligned
+│   │││╎│   0x00106fc0      0000           movs r0, r0
+│  ┌──────< 0x00106fc2      5ce3           unaligned
+│  ││││╎│   0x00106fc4      5cc0           stm r0!, {r2, r3, r4, r6}
+│  ││││╎│   0x00106fc6      9f05           unaligned
+│  ││││╎│   0x00106fc8      0001           lsls r0, r0, 4
+│  ││││└──< 0x00106fca      95e7           unaligned
+│  ││││ │   0x00106fcc      1cc0           stm r0!, {r2, r3, r4}
+│  ││││ │   0x00106fce      9c05           unaligned
+│  ││││ │   0x00106fd0      0000           movs r0, r0
+│  ││││┌──< 0x00106fd2      50e3           unaligned
+│  ││││││   0x00106fd4      0600           movs r6, r0
+│  ││││││   0x00106fd6      000a           unaligned
+│  ││││││   0x00106fd8      0810           asrs r0, r1, 0x20
+│  ││││││   0x00106fda      8de80230       unaligned
+│ ┌───────< 0x00106fde      a0e1           unaligned
+│ │││││││   0x00106fe0      0120           movs r0, 1
+│ ────────< 0x00106fe2      a0e1           unaligned
+│ │││││││   0x00106fe4      0410           asrs r4, r0, 0x20
+│ ────────< 0x00106fe6      a0e1           unaligned
+│ │││││││   0x00106fe8      c219           adds r2, r0, r7
+│ │││││││   0x00106fea      00eb14d0       unaligned
+│ ────────< 0x00106fee      8de2           unaligned
+│ │││││││   0x00106ff0      3080           strh r0, [r6]
+│ │││││││   0x00106ff2  ~   bde80030       unaligned
+│ │││││││   0x00106ff4      0030a0e3       mov r3, 0
+│ │││││││   0x00106ff8      0100a0e3       mov r0, 1
+│ │││││││   0x00106ffc      0220a0e3       mov r2, 2
+│ │││││││   0x00107000      0340a0e1       mov r4, r3
+│ │││││││   0x00107004      1d008de8       stm sp, {r0, r2, r3, r4}
+│ │││││││   0x00107008      0d10a0e1       mov r1, sp
+│ │││││││   0x0010700c      0320a0e1       mov r2, r3
+│ │││││││   0x00107010      0c00a0e1       mov r0, ip
+│ │││││││   0x00107014      3b6e00eb       bl fcn.00122908
+│ │││││││   0x00107018      14d08de2       add sp, sp, 0x14
+│ │││││││   0x0010701c      0000a0e3       mov r0, 0
+└ │││││││   0x00107020      3080bde8       pop {r4, r5, pc}

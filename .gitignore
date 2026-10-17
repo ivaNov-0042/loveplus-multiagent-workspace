@@ -1,0 +1,52 @@
+# ── 本地密钥/路径配置（含机器绝对路径，禁止提交）──
+.env
+
+# ── Python ──
+__pycache__/
+*.pyc
+.venv/
+
+# ── 大文件：模拟器 / 构建链 / 归档 ──
+tools/
+archive/
+repos/
+
+# ── data/：游戏数据只排除音频（版权物），目录结构与文本/表保留 ──
+data/**/*.mp3
+data/**/*.wav
+data/**/*.ogg
+data/**/*.bcstm
+data/**/*.dsp
+data/**/*.adpcm
+data/**/*.bcsar
+data/**/*.tmp.mp3
+
+# ROM 本体与版权语音资源包（超 GitHub 单文件 100MB 限，且非授权内容）
+data/loveplus/roms_patched/
+data/loveplus/nlp_plus/audio/
+
+# ── 游戏音频样本（含游戏语音，版权物）──
+output/loveplus/mp3_sample/
+output/loveplus/*.mp3
+
+# ── 运行产物 / 临时截图 / 日志 ──
+/tmp/
+tmp/
+loveplus_shots/
+*.log
+
+# ── 模拟器运行时状态 ──
+*.state
+*.sav
+
+# ── agentctl 锁与本地设置 ──
+multiagents/state/locks/
+multiagents/state/settings.json
+
+# ── MCP 客户端配置（需硬编码本机绝对路径，无法脱敏复用）──
+.mcp.json
+opencode.json
+
+# ── 编辑器 / 系统 ──
+.vscode/
+.DS_Store

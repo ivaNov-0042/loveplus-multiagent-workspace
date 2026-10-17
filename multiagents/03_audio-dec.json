@@ -1,0 +1,55 @@
+{
+  "name": "03_audio-dec",
+  "display": "音频解码压缩",
+  "role": "03_audio-dec",
+  "client": "opencode",
+  "status": "active",
+  "updated": "2026-10-18T02:46:54+08:00",
+  "focus": "Siren14 语音转码分发（官参 refdec 解码 → MP3）+ 官参/自研音质差异分析",
+  "sessions": [
+    {
+      "client": "opencode",
+      "session_id": "ses_eb51c975effe600r1ZBxwIe1oZ",
+      "attached_at": "2026-10-18T01:24:12+08:00",
+      "note": "",
+      "last_seen": "2026-10-18T02:46:54+08:00",
+      "state": "active"
+    }
+  ],
+  "board": [],
+  "todo": [],
+  "claims": {
+    "files": [
+      "data/loveplus/nlp_plus/mp3_32k/**",
+      "tools/g7221_ref/**"
+    ],
+    "tmp": "/tmp/03_audio-dec",
+    "resources": []
+  },
+  "memory": [
+    {
+      "path": "memory/loveplus/audio_siren14.md",
+      "role": "maintainer"
+    },
+    {
+      "path": "memory/loveplus/diary/2026-10-18_03_audio-dec.md",
+      "role": "maintainer"
+    }
+  ],
+  "jobs": [],
+  "artifacts": [],
+  "skills": [
+    "multiagent-workflow"
+  ],
+  "handoff": "",
+  "history": [
+    {
+      "t": "2026-10-18T01:24:12+08:00",
+      "e": "建档"
+    },
+    {
+      "t": "2026-10-18T01:24:18+08:00",
+      "e": "改名：03_03_audio-dec → 03_audio-dec（由 03_03_audio-dec 执行；真源引用已同步，叙述文字需人工核对）"
+    }
+  ]
+}

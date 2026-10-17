@@ -1,0 +1,1135 @@
+===== 0x006d6f04 =====
+// callconv: r0 arm32 (r0, r1);
+void fcn.006d6f04 (int32_t arg1, int32_t arg2) {
+    loc_0x006d6f04:
+        push (r0, r1, r2, r3, r4, r5, r6, r7, r8, sb, sl, fp, lr)
+        sp -= 0x2e4
+        r4 = r0       // arg1
+        sl = r3
+        fp = r1       // arg2
+        0x6d8298 ()   // 0x6d8298(0x0, 0x0, 0x0, 0x0)
+        [r4 + 0x44] = (byte) fp
+        r0 = [var_2ech]
+        0x300e60 ()   // 0x300e60(0x0, 0x0, 0x0, 0x0)
+        sb = [0x006d6f30] // [0x6d73dc:4]=0x8a829c // (pstr 0x00844cc8) "Siren14voice.bin"
+        r5 = r0 + 1
+        r0 = [sb]     // "Siren14voice.bin"
+        0x300e60 ()   // 0x300e60(0x844cc8, 0x0, 0x0, 0x0)
+        r0 += r5      // "iren14voice.bin"
+        r6 = r0 + 1   // "ren14voice.bin"
+        r0 = [sb + 4] // "Siren14Voice.spp"
+        0x300e60 ()   // 0x300e60(0x844cfd, 0x0, 0x0, 0x0)
+        r0 += r5      // "iren14Voice.spp"
+        r7 = r0 + 1   // "ren14Voice.spp"
+        r0 = [sb + 8] // "Siren14Voice.dpb"
+        0x300e60 ()   // 0x300e60(0x844c88, 0x0, 0x0, 0x0)
+        r1 = r0 + r5  // "iren14Voice.dpb"
+        r8 = r1 + 1   // "ren14Voice.dpb"
+        r0 = r6 + r7
+        r0 += r8
+        r0 += r5
+        r2 = 0x10
+        r1 = 3
+        0x121ca0 ()   // 0x121ca0(0x18ce654, 0x3, 0x10, 0x0)
+        (a, b) = compare (r0, 0)
+        [r4 + 0x48] = r0
+        je 0x6d73d4   // unlikely
+        goto loc_0x006d6f84;
+    loc_0x006d73d4:
+        sp += 0x2f4
+        pop (r4, r5, r6, r7, r8, sb, sl, fp, pc)
+        return r0;
+    loc_0x006d7024: // orphan
+         add r0, r2, r2, lsl 2
+         r2 += 1
+         add r0, r4, r0, lsl 2
+         (a, b) = compare (r2, 0x10)
+         [r0 + 0x80] = r1
+         [r0 + 0x7c] = r3
+         [r0 + 0x84] = r1
+         [r0 + 0x8c] = (half) r1
+         [r0 + 0x8e] = (byte) r1
+         [r0 + 0x8f] = (byte) r1
+         [r0 + 0x88] = r1
+         blt 0x6d7024             // likely
+
+         goto loc_0x006d7054
+    loc_0x006d7054: // orphan
+         sl = [0x006d705c]        // [0x6d73e0:4]=261
+         r6 = 0
+         r7 = r1
+
+         goto loc_0x006d70b0
+    loc_0x006d70b0: // orphan
+         r0 = [0x006d70b8]        // [0x6d73dc:4]=0x8a829c // (pstr 0x00844cc8) "Siren14voice.bin"
+         r2 = 0x80
+         r1 = [r0 + 0x14]         // "rom:/"
+         r0 = var_20h
+         0x11026c ()              // 0x11026c(0x10078020, 0x844c54, 0x80, 0x0)
+
+         goto loc_0x006d71c4
+    loc_0x006d71c4: // orphan
+         r3 = var_2d8h
+         [r8] = (half) r7
+         ldm r3, (r0, r2)
+         r1 = var_a0h
+         [r0 + 0xc] = r7
+         [r0 + 0x10] = r7
+         [r0 + 4] = r7
+         [r0 + 8] = r7
+         0x5ebed0 ()              // 0x5ebed0(0x0, 0x100780a0, 0x0, 0x100782d8)
+         r0 = r0 >> 0x1f
+         je 0x6d7224              // likely
+
+    loc_0x006d7224: // orphan
+         r0 = var_ch
+         r1 = var_2b8h
+         0x7316a0 ()              // 0x7316a0(0x1007800c, 0x100782b8, 0x0, 0x0)
+         r1 = r0 >> 0x1f
+         r2 = pc
+         movne r1, r2
+         blne 0x110ccc            // 0x110ccc(0x1007800c, 0x0, 0x6d7234, 0x0)
+         r1 = [var_2c8h]
+         r0 = [var_2b8h]
+         [r1 + 0xc] = r0
+         r0 = [var_ch]
+         bics r0, r0, 1
+         je 0x6d7274              // likely
+
+    loc_0x006d7274: // orphan
+         r0 = [0x006d727c]        // [0x6d73dc:4]=0x8a829c // (pstr 0x00844cc8) "Siren14voice.bin"
+         r2 = [var_2cch]
+         r1 = [r0 + 0x10]         // ".bcsar"
+         r0 = [var_2ach]
+         0x1317dc ()              // 0x1317dc(0x0, 0x844d53, 0x0, 0x0)
+         r0 = 1
+         [var_2b4h] = r0
+         r8 = var_20h
+         sb = var_ch
+         r5 = var_a0h
+         r0 = var_2d0h
+         [var_2d0h] = r7
+         [var_2d4h] = r7
+         0x100718 ()              // 0x100718(0x100782d0, 0x844d53, 0x0, 0x0)
+         sl = r4
+
+         goto loc_0x006d72f0
+    loc_0x006d72f0: // orphan
+         [r5] = (half) r7
+         r2 = [var_2b4h]
+         [sb + 0xc] = r7
+         [sb + 0x10] = r7
+         [sb + 4] = r7
+         r1 = var_a0h
+         r0 = sb
+         [sb + 8] = r7
+         0x5ebed0 ()              // 0x5ebed0(0x0, 0x100780a0, 0x1, 0x0)
+         r0 = r0 >> 0x1f
+         je 0x6d7350              // likely
+
+    loc_0x006d7350: // orphan
+         r0 = var_ch
+         r1 = var_2c0h
+         0x7316a0 ()              // 0x7316a0(0x1007800c, 0x100782c0, 0x0, 0x0)
+         r1 = r0 >> 0x1f
+         r2 = pc
+         movne r1, r2
+         blne 0x110ccc            // 0x110ccc(0x1007800c, 0x0, 0x6d7360, 0x0)
+         r1 = [var_2c8h]
+         r0 = [var_2c0h]
+         [r1 + 0x10] = r0
+         r0 = [var_ch]
+         bics r0, r0, 1
+         je 0x6d73a0              // likely
+
+    loc_0x006d73a0: // orphan
+         r0 = [var_ch]
+         bics r0, r0, 1
+         je 0x6d73c8              // likely
+
+    loc_0x006d73c8: // orphan
+         r6 += 1
+         (a, b) = compare (r6, 5)
+         blt 0x6d7060             // likely
+
+    loc_0x006d7060: // orphan
+         r5 = [0x006d7068]        // [0x6d73e4:4]=0x8a82b8 // (pstr 0x00844c80) "LP2_CTR"
+         add r4, r6, r6, lsl 2
+         (a, b) = compare (r6, 4)
+         add r0, r5, r4, lsl 2    // (pstr 0x00844c80) "LP2_CTR"
+         [var_2c8h] = r0
+         [r0 + 8] = (byte) fp
+         bne 0x6d70b0             // likely
+
+         goto loc_0x006d73ac
+    loc_0x006d73ac: // orphan
+         r0 = [var_ch]
+         (a, b) = compare (r0, 1)
+         blne 0x124730            // 0x124730(0x0, 0x0, 0x0, 0x0)
+         r0 = [var_ch]
+         bic r0, r0, 1
+         0x5ec684 ()              // 0x5ec684(0x0, 0x0, 0x0, 0x0)
+
+         goto loc_0x006d7384
+    loc_0x006d7384: // orphan
+         r0 = [var_ch]
+         (a, b) = compare (r0, 1)
+         blne 0x124730            // 0x124730(0x0, 0x0, 0x0, 0x0)
+         r0 = [var_ch]
+         bic r0, r0, 1
+         0x5ec684 ()              // 0x5ec684(0x0, 0x0, 0x0, 0x0)
+         [var_ch] = r7
+
+         goto loc_0x006d7320
+    loc_0x006d7320: // orphan
+         r0 = [var_ch]
+         bics r0, r0, 1
+         je 0x6d73c8              // likely
+
+         goto loc_0x006d732c
+    loc_0x006d732c: // orphan
+         r0 = [var_ch]
+         (a, b) = compare (r0, 1)
+         blne 0x124730            // 0x124730(0x0, 0x0, 0x0, 0x0)
+         r0 = [var_ch]
+         bic r0, r0, 1
+         0x5ec684 ()              // 0x5ec684(0x0, 0x0, 0x0, 0x0)
+         
+         
+    loc_0x006d73c4: // orphan
+         // CODE XREFS from fcn.006d6f04 @ 0x6d7220(x), 0x6d734c(x)
+         [var_ch] = r7
+
+    loc_0x006d72cc: // orphan
+         r2 = r0
+         r3 = var_2d0h
+         r1 = r8
+         r0 = r5
+         0x100748 ()              // 0x100748(0x0, 0x0, 0x0, 0x100782d0)
+         (a, b) = compare (r0, 0)
+         addne r5, r5, 2
+         addne r8, r8, r4
+         bne 0x6d72b0             // unlikely
+
+    loc_0x006d72b0: // orphan
+         r2 = var_2d0h
+         r1 = sl
+         r0 = r8
+         0x10072a ()              // 0x10072a(0x0, 0x0, 0x100782d0, 0x0)
+         r4 = r0
+         je 0x6d72f0              // likely
+
+         goto loc_0x006d7258
+    loc_0x006d7258: // orphan
+         r0 = [var_ch]
+         (a, b) = compare (r0, 1)
+         blne 0x124730            // 0x124730(0x0, 0x0, 0x0, 0x0)
+         r0 = [var_ch]
+         bic r0, r0, 1
+         0x5ec684 ()              // 0x5ec684(0x0, 0x0, 0x0, 0x0)
+         [var_ch] = r7
+
+         goto loc_0x006d71f4
+    loc_0x006d71f4: // orphan
+         r0 = [var_ch]
+         bics r0, r0, 1
+         je 0x6d73c8              // likely
+
+    loc_0x006d7200: // orphan
+         r0 = [var_ch]
+         (a, b) = compare (r0, 1)
+         blne 0x124730            // 0x124730(0x0, 0x0, 0x0, 0x0)
+         r0 = [var_ch]
+         bic r0, r0, 1
+         0x5ec684 ()              // 0x5ec684(0x0, 0x0, 0x0, 0x0)
+         
+         
+    loc_0x006d71a0: // orphan
+         r2 = r0
+         r3 = var_2d0h
+         r1 = sb
+         r0 = r8
+         0x100748 ()              // 0x100748(0x0, 0x0, 0x0, 0x100782d0)
+         (a, b) = compare (r0, 0)
+         addne r8, r8, 2
+         addne sb, sb, r5
+         bne 0x6d7180             // unlikely
+
+    loc_0x006d7180: // orphan
+         r2 = var_2d0h
+         r4 = sl
+         r1 = sl
+         r0 = sb
+         0x10072a ()              // 0x10072a(0x0, 0x0, 0x100782d0, 0x0)
+         r5 = r0
+         je 0x6d71c4              // likely
+
+         goto loc_0x006d707c
+    loc_0x006d707c: // orphan
+         0x1079f8 ()              // 0x1079f8(0x0, 0x0, 0x0, 0x0)
+         (a, b) = compare (r0, 0)
+         je 0x6d70b0              // likely
+
+    loc_0x006d708c: // orphan
+         r0 = r5 - 0x1c
+         r2 = 0x80
+         r1 = [r0 + 0x18]
+         r0 = var_20h
+         0x11026c ()              // 0x11026c(0x10078020, -1, 0x80, 0x0)
+         r1 = r5 + 0
+         r0 = 2
+         [r1 + 0x58] = (byte) r0
+         
+    loc_0x006d70c4: // orphan
+         // CODE XREF from fcn.006d6f04 @ 0x6d70ac(x)
+         r1 = [var_2ech]
+         r2 = 0x80
+         r0 = var_20h
+         0x1316bc ()              // 0x1316bc(0x10078020, 0x0, 0x80, 0x0)
+         r0 = var_20h
+         0x300e60 ()              // 0x300e60(0x10078020, 0x0, 0x80, 0x0)
+         r1 = r0
+         r2 = var_20h
+         rsb sb, r1, 0x80
+         r8 = r2 + r1
+         r1 = [0x006d70f8]        // [0x6d73e8:4]=0x82bbe0 // (pstr 0x0082bc20) "d~^"
+         [var_ch] = r7
+         [var_10h] = r7
+         [var_14h] = r7
+         [var_18h] = r7
+         [var_1ch] = r7
+         r2 = [r1]
+         r0 = var_8h
+         [var_8h] = r2
+         r2 = [r2 - 0x30]
+         r1 = [r1 + 0xc]
+         [r0 + r2] = r1
+         ldr r1, [r5, r4, lsl 2]
+         r2 = sb
+         r0 = r8
+         0x11026c ()              // 0x11026c(0x200f0040, 0xffff0000, 0xeff88060, 0x0)
+         r0 = r8
+         0x300e60 ()              // 0x300e60(0x200f0040, 0xffff0000, 0xeff88060, 0x0)
+         r1 = [0x006d7144]        // [0x6d73dc:4]=0x8a829c // (pstr 0x00844cc8) "Siren14voice.bin"
+         r2 = sb - r0
+         r0 += r8
+         [var_2ach] = r0
+         [var_2cch] = r2
+         r1 = [r1 + 0xc]          // ".csidbin"
+         0x11026c ()              // 0x11026c(0x401e0080, 0x844cf4, 0xcfe98020, 0x0)
+         r0 = 1
+         [var_2dch] = r0
+         r0 = var_ch
+         [var_2d8h] = r0
+         sb = var_20h
+         r8 = var_a0h
+         r0 = var_2d0h
+         [var_2d0h] = r7
+         [var_2d4h] = r7
+         0x100718 ()              // 0x100718(0x100782d0, 0x844cf4, 0xcfe98020, 0x0)
+
+}
+
+===== 0x006d7d1c =====
+ERROR: Failed to retrieve block at 0x6d7fa8
+// callconv: r0 arm32 (r0, r1);
+void fcn.006d7d1c (int32_t arg1) {
+    loc_0x006d7d1c:
+        push (r4, r5, r6, r7, r8, sb, sl, fp, lr)
+        r4 = r0       // arg1
+        r8 = r4 + 0x800
+        sp -= 0xc
+        fp = r4 + 0x800
+        r0 = (byte) [r0 + 0x1bc] // arg1
+        r1 = r4 + 0x1ec
+        sb = 0
+        (a, b) = compare (r0, 0) // arg1
+        r8 += 0xf4
+        fp += 0x104
+        je 0x6d7e94   // unlikely
+        goto loc_0x006d7d4c;
+    loc_0x006d7e94:
+        // CODE XREF from fcn.006d7d1c @ 0x6d7f50(x)
+        r0 = r4 + 0x800
+        r5 = r4 + 0x1ec
+        r0 += 0xfc
+        0x11611c ()   // 0x11611c(0x8fc, 0x0, 0x0, 0x0)
+        r6 = [r5 + 0x708]
+        r0 = r5 + 0x710
+        0x116288 ()   // 0x116288(0x8fc, 0x0, 0x0, 0x0)
+        (a, b) = compare (r6, 0)
+        ble 0x6d8284  // likely
+        goto loc_0x006d7ebc;
+    loc_0x006d8284:
+        // CODE XREFS from fcn.006d7d1c @ 0x6d810c(x), 0x6d8120(x), 0x6d8278(x)
+        sp += 0xc
+        r0 = 1
+        pop (r4, r5, r6, r7, r8, sb, sl, fp, pc)
+        goto loc_0x006d7f24;
+        goto loc_0x006d7d54;
+        return r0;
+    loc_0x006d7d54:
+        r5 = r1
+        r0 = r1 + 0x710
+        0x11611c ()   // 0x11611c(0x710, 0x0, 0x0, 0x0)
+        r6 = [r5 + 0x708]
+        r0 = r5 + 0x710
+        0x116288 ()   // 0x116288(0x710, 0x0, 0x0, 0x0)
+        (a, b) = compare (r6, 0)
+        ble 0x6d8284  // likely
+        goto loc_0x006d7d74;
+    loc_0x006d7d74:
+        r0 = (byte) [r4 + 0x1bc]
+        r5 = 0
+        r7 = r4 + 0x100
+        (a, b) = compare (r0, 6)
+        cmpne r0, 7
+        je 0x6d7da4   // unlikely
+        goto loc_0x006d7d8c;
+    loc_0x006d7da4:
+        r0 = 0
+        [var_8h] = r0
+        r1 = (byte) [r4 + 0x1bc]
+        sl = 1
+        (a, b) = compare (r1, 2)
+        je 0x6d7f94   // unlikely
+        goto loc_0x006d7dbc;
+    loc_0x006d7f94:
+        r1 &= 0xff
+        (a, b) = compare (r1, 8)
+        r8 = r4 + 0x1ec
+        ldrlo pc, [pc, r1, lsl 2] // [0x6d7fa8:4]=0x6d8090 case.0x6d7fa0.0 // switch table (8 cases) at 0x6d7fa8 // case.0x6d7fa0.0
+        goto loc_0x006d7fa4;
+        // chop
+    loc_0x006d7f34: // orphan
+         r0 = r5 + 0x710
+         0x116288 ()              // 0x116288(0x710, 0x0, 0x0, 0x0)
+         r0 = r5 + 0x720
+         0x116288 ()              // 0x116288(0x720, 0x0, 0x0, 0x0)
+         
+         
+         goto loc_0x006d7f24
+    loc_0x006d7f24: // orphan
+         [r0 + 0x14] = r1
+         r1 = [r5 + 4]
+         [r1 + 0x18] = r0
+         [r5 + 4] = r0
+
+         goto loc_0x006d7d4c
+    loc_0x006d7d4c: // orphan
+         (a, b) = compare (r0, 2) // arg1
+         je 0x6d7d74              // unlikely
+
+    loc_0x006d8090: // case 0
+         // CODE XREFS from fcn.006d7d1c @ 0x6d7fa0(x), 0x6d7fa4(x)
+         r0 = [var_8h]
+         (a, b) = compare (r0, 0)
+         je 0x6d8284              // likely
+
+         goto loc_0x006d809c
+    loc_0x006d809c: // case 7
+         // CODE XREFS from fcn.006d7d1c @ 0x6d7f90(x), 0x6d7fa0(x), 0x6d8128(x), 0x6d8130(x), 0x6d81cc(x)
+         (a, b) = compare (r5, 0)
+         je 0x6d80a8              // likely
+
+    loc_0x006d80a8: // orphan
+         r0 = [r4 + 0x58]
+         r1 = 0xff
+         [r4 + 0x1bd] = (byte) r1
+         (a, b) = compare (r0, 0)
+         [r4 + 0x1bc] = (byte) sb
+         je 0x6d80c8              // unlikely
+
+    loc_0x006d80c8: // orphan
+         r2 = (byte) [r7 + 0xbe]
+         r0 = r4
+         r1 = 0
+
+         goto loc_0x006d8100
+    loc_0x006d8100: // orphan
+         r1 += 1
+         (a, b) = compare (r1, 0x10)
+         blt 0x6d80d4             // likely
+
+    loc_0x006d80d4: // orphan
+         r2 += 1
+         add r3, r1, r1, lsl 2
+         (a, b) = compare (r2, 0x10)
+         add r3, r0, r3, lsl 2
+         movge r2, 0
+         ip = [r3 + 0x7c]
+         if (ip != 1)
+         je 0x6d8100              // unlikely
+
+         goto loc_0x006d810c
+    loc_0x006d810c: // orphan
+         
+    loc_0x006d80f4: // orphan
+         r3 = (byte) [r3 + 0x8e]
+         (a, b) = compare (r3, 0)
+         je 0x6d827c              // unlikely
+
+    loc_0x006d827c: // orphan
+         
+         0x6d854c ()              // 0x6d854c(0x0, 0x0, 0x0, 0x0)
+
+    loc_0x006d80c0: // orphan
+         0x2fcd88 ()              // 0x2fcd88(0x0, 0x0, 0x0, 0x0)
+         [r4 + 0x58] = sb
+
+         goto loc_0x006d80a4
+    loc_0x006d80a4: // orphan
+         // CODE XREF from fcn.006d7d1c @ 0x6d7e90(x)
+         [r5 + 0x12] = (byte) sl
+
+         goto loc_0x006d7fc8
+    loc_0x006d7fc8: // case 1
+         // CODE XREF from fcn.006d7d1c @ 0x6d7fa0(x)
+         r1 = [r4 + 0x78]
+         (a, b) = compare (r0, r1)
+         streq sb, [r4, 0x78]
+         bne 0x6d8284             // likely
+
+    loc_0x006d7fd8: // case 2
+         // CODE XREF from fcn.006d7d1c @ 0x6d7fa0(x)
+         fp = [r4 + 0x1e4]
+         r6 = [r4 + 0x1e8]
+         (a, b) = compare (r6, 0)
+         je case.0x6d7fa0.7       // unlikely
+
+         goto loc_0x006d7fe8
+    loc_0x006d7fe8: // orphan
+         r0 = r6
+         r3 = 0x10
+         r1 = r4 + 0x7c
+         r2 = r4 + 0x84
+
+    loc_0x006d7ff8: // orphan
+         ip = [r1]
+         r1 += 0x14
+         if (ip != 1)
+         ldrne ip, [r2]
+         r2 += 0x14
+         addne r0, r0, ip
+         r3 -= 1
+         bne 0x6d7ff8             // likely
+
+         goto loc_0x006d8018
+    loc_0x006d8018: // orphan
+         (a, b) = compare (r0, 0x60000)
+         movge r0, 2
+         strbge r0, [r4, 0x1bc]
+         (>=) 
+    loc_0x006d8028: // orphan
+         r2 = 0x10
+         r1 = 3
+         r0 = r6
+         0x121ca0 ()              // 0x121ca0(0x0, 0x3, 0x10, 0x0)
+         (a, b) = compare (r0, 0)
+         [r5 + 4] = r0
+         strbeq sl, [r5, 0x13]
+         je case.0x6d7fa0.7       // likely
+
+    loc_0x006d8048: // orphan
+         [r5 + 8] = r6
+         r3 = [r5]
+         r2 = (byte) [r4 + 0x44]
+         r1 = [r4 + 0x4c]
+         if (r3 != 1)
+         andne r3, r3, 0xff000000
+         cmpne r3, 0x10000000
+         bls 0x6d8074             // unlikely
+
+    loc_0x006d8074: // orphan
+         stm sp, (r2, r8)
+         r3 = fp                  // r13
+         r2 = r6
+         0x106f9c ()              // 0x106f9c(0x0, 0x0, 0x0, 0x10078000)
+         r1 = 3
+         [r5 + 0xc] = r0
+         [r4 + 0x1bc] = (byte) r1
+
+         goto loc_0x006d8068
+    loc_0x006d8068: // orphan
+         r1 = [0x006d8070]        // [0x6d8290:4]=0x7e38e4 // (pstr 0x00844cd9) "SoundEx/Siren14VoiceEx.bin"
+         r2 = (byte) [r4 + 0x5c]
+         r1 = [r1 + 4]            // "SoundEx/Siren14VoiceEx.spp"
+
+         goto loc_0x006d8110
+    loc_0x006d8110: // case 3
+         // CODE XREF from fcn.006d7d1c @ 0x6d7fa0(x)
+         r1 = [r5 + 0xc]
+         (a, b) = compare (r0, r1)
+         streq sb, [r5, 0xc]
+         je case.0x6d7fa0.7       // likely
+
+    loc_0x006d8120: // orphan
+         
+    loc_0x006d8124: // case 4
+         // CODE XREF from fcn.006d7d1c @ 0x6d7fa0(x)
+         [r4 + 0x1bf] = (byte) sl
+         
+    loc_0x006d812c: // case 5
+         // CODE XREF from fcn.006d7d1c @ 0x6d7fa0(x)
+         [r4 + 0x1c0] = (byte) sl
+         
+    loc_0x006d8134: // case 6
+         // CODE XREF from fcn.006d7d1c @ 0x6d7fa0(x)
+         r1 = [r4 + 0x78]
+         (a, b) = compare (r0, r1)
+         bne 0x6d8284             // likely
+
+    loc_0x006d8140: // orphan
+         ldrsh r2, [r4, 0x64]
+         r1 = [r4 + 0x60]
+         r0 = ~0x13
+         add r2, r2, r2, lsl 2
+         add r0, r0, r2, lsl 2
+         r6 = r1 + r0
+         r0 = [r6 + 4]
+         (a, b) = compare (r0, 0)
+         je 0x6d8198              // unlikely
+
+    loc_0x006d8198: // orphan
+         r0 = [r6 + 4]
+         [r6] = sb
+         (a, b) = compare (r0, 0)
+         je 0x6d81b0              // likely
+
+    loc_0x006d81b0: // orphan
+         r0 = [r6 + 8]
+         (a, b) = compare (r0, 0)
+         je case.0x6d7fa0.7       // likely
+
+    loc_0x006d81bc: // orphan
+         r1 = 3
+         0x129ed4 ()              // 0x129ed4(0x0, 0x3, 0x0, 0x0)
+         [r6 + 8] = sb
+         
+    loc_0x006d81a8: // orphan
+         0x2fcd88 ()              // 0x2fcd88(0x0, 0x0, 0x0, 0x0)
+         [r6 + 4] = sb
+
+         goto loc_0x006d8164
+    loc_0x006d8164: // orphan
+         r1 = [r6]
+         (a, b) = compare (r1, 0)
+         je 0x6d8198              // likely
+
+         goto loc_0x006d8170
+    loc_0x006d8170: // orphan
+         r1 = (byte) [r0]
+         (a, b) = compare (r1, 0x53) // 'S'
+         bne 0x6d8198             // likely
+
+    loc_0x006d817c: // orphan
+         r1 = (byte) [r0 + 1]
+         (a, b) = compare (r1, 0x44) // 'D'
+         ldrbeq r1, [r0, 2]
+         cmpeq r1, 0x4e           // 'N'
+         ldrbeq r1, [r0, 3]
+         cmpeq r1, 0x4d           // 'M'
+         je 0x6d81d0              // unlikely
+
+    loc_0x006d81d0: // orphan
+         r2 = [r0 + 8]
+         r1 = (byte) [r0 + 0xb]
+         rev r2, r2
+         bic r2, r2, 0xff
+         r1 |= r2
+         [r6 + 0xc] = r1
+         r0 = (word) [r0 + 0xc]
+         rev16 r0, r0
+         [r6 + 0x10] = (half) r0
+         r0 = (byte) [r7 + 0xbd]
+         (a, b) = compare (r0, 0)
+         strbeq sl, [r4, 0x1c1]
+         je case.0x6d7fa0.7       // unlikely
+
+    loc_0x006d8204: // orphan
+         r0 = [r6]
+         r0 = [r0]
+         0x300e60 ()              // 0x300e60(0x0, 0x0, 0x0, 0x0)
+         r5 = r0
+         r0 = (byte) [r7 + 0xbd]
+         (a, b) = compare (r0, 0)
+         blt 0x6d822c             // likely
+
+    loc_0x006d822c: // orphan
+         r7 = [0x006d8234]        // [0x6d8294:4]=0x8a829c // (pstr 0x00844cc8) "Siren14voice.bin"
+         r0 = [r7 + 0x10]         // ".bcsar"
+         0x300e60 ()              // 0x300e60(0x844d53, 0x0, 0x0, 0x0)
+         r2 = r0 + 1              // "bcsar"
+         r0 = [r4 + 0x58]
+         r1 = [r7 + 0x10]         // ".bcsar"
+         r0 += r5
+         0x1317dc ()              // 0x1317dc(0x0, 0x844d53, 0x844d54, 0x0)
+         r0 = [r6]
+         r3 = 0
+         r1 = (byte) [r0 + 8]
+         stm sp, (r1, r8)
+         r2 = [r0 + 0x10]
+         r1 = [r4 + 0x58]
+         r0 = [r6 + 8]
+         0x106f9c ()              // 0x106f9c(0x0, 0x0, 0x0, 0x0)
+         r1 = 7
+         [r4 + 0x78] = r0
+         [r4 + 0x1bc] = (byte) r1
+         
+    loc_0x006d8220: // orphan
+         r0 = [r4 + 0x54]
+         0x300e60 ()              // 0x300e60(-1, 0x0, 0x0, 0x0)
+         r5 += r0
+
+         goto loc_0x006d7fa4
+    loc_0x006d7fa4: // case 0x6d7fa0
+         // CODE XREF from fcn.006d7d1c @ 0x6d7fa0(x)
+         
+    loc_0x006d7dbc: // orphan
+         (a, b) = compare (r1, 8)
+         je 0x6d7e84              // unlikely
+
+    loc_0x006d7e84: // orphan
+         (a, b) = compare (r5, 0)
+         strbne sl, [r5, 0x13]
+         je 0x6d80a8              // likely
+
+    loc_0x006d7e90: // orphan
+         
+         goto loc_0x006d7dc4
+    loc_0x006d7dc4: // orphan
+         r6 = r4 + 0x1ec
+         r0 = fp                  // r13
+         0x11611c ()              // 0x11611c(0x10078000, 0x0, 0x0, 0x0)
+         r0 = r6 + 0x710
+         0x11611c ()              // 0x11611c(0x8fc, 0x0, 0x0, 0x0)
+         r0 = [r6 + 0x708]
+         r0 -= 1
+         [r8] = r0
+         r0 = [r6]
+         r1 = [r0 + 0x14]
+         r8 = [r0 + 4]
+         fp = [r0 + 0xc]
+         [r6] = r1
+         r1 = [r0 + 0x14]
+         (a, b) = compare (r1, 0)
+         ldrne r2, [r0, 0x18]
+         strne r2, [r1, 0x18]
+         r1 = [r0 + 0x18]
+         (a, b) = compare (r1, 0)
+         ldrne r2, [r0, 0x14]
+         strne r2, [r1, 0x14]
+         [r0 + 0x14] = sb
+         [r0 + 0x18] = sb
+         r1 = [r6 + 4]
+         (a, b) = compare (r1, 0)
+         streq r0, [r6, 4]
+         je 0x6d7e44              // unlikely
+
+    loc_0x006d7e44: // orphan
+         r0 = r6 + 0x710
+         0x116288 ()              // 0x116288(0x710, 0x0, 0x0, 0x0)
+         r0 = r6 + 0x720
+         0x116288 ()              // 0x116288(0x720, 0x0, 0x0, 0x0)
+         r1 = (byte) [r4 + 0x1bc]
+         r0 = fp                  // r13
+         (a, b) = compare (r1, 2)
+         je 0x6d7f94              // unlikely
+
+         goto loc_0x006d7e68
+    loc_0x006d7e68: // orphan
+         (a, b) = compare (r1, 8)
+         je 0x6d7e84              // unlikely
+
+         goto loc_0x006d7e70
+    loc_0x006d7e70: // orphan
+         (a, b) = compare (r8, 0)
+         je 0x6d7f94              // likely
+
+    loc_0x006d7e78: // orphan
+         (a, b) = compare (r1, 6)
+         cmpne r1, 7
+         je 0x6d7f54              // unlikely
+
+    loc_0x006d7f54: // orphan
+         ldrsh r2, [r4, 0x64]
+         r1 = [r4 + 0x60]
+         r0 = ~0x13
+         add r2, r2, r2, lsl 2
+         add r0, r0, r2, lsl 2
+         r6 = r1 + r0
+         [r6] = sb
+         r0 = [r6 + 4]
+         (a, b) = compare (r0, 0)
+         je 0x6d7f84              // unlikely
+
+    loc_0x006d7f84: // orphan
+         r0 = [r6 + 8]
+         (a, b) = compare (r0, 0)
+         bne 0x6d81bc             // unlikely
+
+         goto loc_0x006d7f90
+    loc_0x006d7f90: // orphan
+         
+    loc_0x006d7f7c: // orphan
+         0x2fcd88 ()              // 0x2fcd88(0x0, 0x0, 0x0, 0x0)
+         [r6 + 4] = sb
+
+         goto loc_0x006d7e34
+    loc_0x006d7e34: // orphan
+         [r0 + 0x14] = r1
+         r1 = [r6 + 4]
+         [r1 + 0x18] = r0
+         [r6 + 4] = r0
+
+         goto loc_0x006d7d8c
+    loc_0x006d7d8c: // orphan
+         r0 = (byte) [r7 + 0xbd]
+         (a, b) = compare (r0, 0)
+         blt 0x6d7da4             // likely
+
+         goto loc_0x006d7d98
+    loc_0x006d7d98: // orphan
+         add r0, r0, r0, lsl 2
+         add r0, r4, r0, lsl 2
+         r5 = r0 + 0x7c
+
+}
+
+===== 0x006d8bb0 =====
+// callconv: r0 arm32 (r0, r1);
+void fcn.006d8bb0 (int32_t arg1) {
+    loc_0x006d8bb0:
+        push (r4, r5, r6, r7, r8, sb, sl, fp, lr)
+        sp -= 0x94
+        r5 = r0       // arg1
+        0x600738 ()   // 0x600738(0x0, 0x0, 0x0, 0x0)
+        r0 = r0 >> 0x1f
+        blne 0x124730 // 0x124730(0x0, 0x0, 0x0, 0x0)
+        0x600d14 ()   // 0x600d14(0x0, 0x0, 0x0, 0x0)
+        r0 = r0 >> 0x1f
+        blne 0x124730 // 0x124730(0x0, 0x0, 0x0, 0x0)
+        0x611e08 ()   // 0x611e08(0x0, 0x0, 0x0, 0x0)
+        r7 = [0x006d8be0] // [0x6d8e78:4]=0x8a8330 // (pstr 0x00844d3b) "rom:/Plus/Sound/"
+        r0 = r0 >> 0x1f
+        r6 = 0
+        blne 0x124730 // 0x124730(0x0, 0x0, 0x0, 0x0)
+        r0 = 0
+        [var_ch] = r0
+        [var_4h] = r0
+        [r5 + 0x44] = r6
+        r4 = [r7]     // "rom:/Plus/Sound/"
+        r0 = var_10h
+        0x7234e8 ()   // 0x7234e8(0x10077f58, 0x0, 0x0, 0x0)
+        [var_10h] = r4
+        r1 = [r7 + 4] // "LP2_CTR.bcsar"
+        r0 = 1
+        [var_3ch] = r1
+        r1 = [0x006d8c1c] // [0x6d8e7c:4]=0x66e8e4
+        [var_18h] = r1
+        r1 = [0x006d8c24] // [0x6d8e80:4]=0x66e8dc
+        [var_1ch] = r1
+        r1 = [0x006d8c2c] // [0x6d8e84:4]=0x120508
+        [var_20h] = r1
+        r1 = [0x006d8c34] // [0x6d8e88:4]=0x66e8d4
+        [var_24h] = r1
+        r1 = [0x006d8c3c] // [0x6d8e8c:4]=0x5e0f3c
+        [var_28h] = r1
+        r1 = [0x006d8c44] // [0x6d8e90:4]=0x5e1004
+        [var_2ch] = r1
+        r1 = [0x006d8c4c] // [0x6d8e94:4]=0x5e1048
+        [var_30h] = r1
+        r1 = [0x006d8c54] // [0x6d8e98:4]=0x5e0f34
+        [var_34h] = r1
+        r1 = [0x006d8c5c] // [0x6d8e9c:4]=0x5e0eb4
+        [var_48h] = (half) r6
+        [var_4ah] = (byte) r0
+        [var_38h] = r1
+        [var_4eh] = (half) r0
+        r0 = var_10h  // (pstr 0x00844d3b) "rom:/Plus/Sound/"
+        0x677a54 ()   // 0x677a54(0x10077f58, 0x5e0eb4, 0x0, 0x0)
+        r0 = [0x006d8c78] // [0x6d8ea0:4]=0x5b8
+        r2 = 0x10
+        r1 = 3
+        0x116d5c ()   // 0x116d5c(0x5b8, 0x3, 0x10, 0x0)
+        (a, b) = compare (r0, 0)
+        je 0x6d8ca8   // unlikely
+        goto loc_0x006d8c88;
+    loc_0x006d8ca8:
+        [r5 + 0x44] = r0
+        r2 = 0
+        r0 += 8
+        lr = r6
+        
+    loc_0x006d8cb8:
+        r1 = ~0
+        [r0 + 8] = r1
+        r7 = 0
+        [r0] = (half) lr
+        r1 = r0
+        r3 = ~0
+        [r0 + 2] = (half) lr
+        r1 += 0x10
+        [r0 + 0x30] = lr
+        r6 = r3
+        r8 = r7
+        sb = r7
+        sl = r7
+        fp = r3
+        ip = ~0x80000000
+        [r0 + 0x34]! = lr
+        stm r1, (r3, r6, r7, r8, sb, sl, fp, ip)
+        r2 += 1
+        (a, b) = compare (r2, 0x10)
+        r0 += 4
+        blt 0x6d8cb8  // likely
+        goto loc_0x006d8d0c;
+        return r0;
+    loc_0x006d8d0c: // orphan
+         r0 = [r5 + 0x44]
+         r2 = 0
+         r1 = ~0
+         r0 += 0x388
+
+    loc_0x006d8d1c: // orphan
+         r3 = ~0
+         stm r0, (r1, lr)
+         r7 = 0
+         r8 = r0 + 0x10
+         r6 = r3
+         ip = r7
+         [r0 + 8] = (byte) lr
+         stm r8, (r3, r6, r7, ip)
+         r2 += 1
+         (a, b) = compare (r2, 0x10)
+         r0 += 0x20
+         blt 0x6d8d1c             // likely
+
+         goto loc_0x006d8d4c
+    loc_0x006d8d4c: // orphan
+         r2 = [r5 + 0x44]
+         r0 = 1
+         [r2 + 0x588] = (byte) r0
+         r0 = [r5 + 0x44]
+         [r0 + 0x589] = (byte) lr
+         r2 = [r5 + 0x44]
+         r0 = ~0
+         [r2 + 0x58a] = (byte) lr
+         r3 = [r5 + 0x44]
+         r2 = r0
+         [r3 + 0x590] = r1
+         r3 = [r5 + 0x44]
+         r3 += 0x400
+         r3 += 0x198
+         stm r3, (r0, r2)
+         r0 = [r5 + 0x44]
+         [r0 + 0x5a0] = lr
+         r0 = [r5 + 0x44]
+         [r0 + 0x58e] = (byte) lr
+         r0 = [r5 + 0x44]
+         [r0 + 0x58b] = (byte) lr
+         r0 = [r5 + 0x44]
+         [r0 + 0x58c] = (byte) lr
+         r0 = [r5 + 0x44]
+         [r0 + 0x5b0] = (byte) r1
+         r0 = [r5 + 0x44]
+         [r0 + 0x58d] = (byte) lr
+         r0 = [r5 + 0x44]
+         [r0 + 0x5b4] = lr
+         r0 = (byte) [r4]
+         (a, b) = compare (r0, 0)
+         je 0x6d8de4              // likely
+
+    loc_0x006d8de4: // orphan
+         r7 = 0
+         r8 = ~0
+         r2 = 0x10
+         r1 = r7
+         r0 = 0x920
+         0x116d5c ()              // 0x116d5c(0x920, 0x0, 0x10, 0x0)
+         (a, b) = compare (r0, 0)
+         je 0x6d8e38              // unlikely
+
+    loc_0x006d8e38: // orphan
+         // CODE XREF from fcn.006d8bb0 @ 0x6d8e74(x)
+         r6 = 0
+
+         goto loc_0x006d8e08
+    loc_0x006d8e08: // orphan
+         0x6d880c ()              // 0x6d880c(0x0, 0x0, 0x0, 0x0)
+         r6 = r0
+         je 0x6d8e3c              // likely
+
+    loc_0x006d8e3c: // orphan
+         // CODE XREF from fcn.006d8bb0 @ 0x6d8e34(x)
+         r1 = [r5 + 0x44]
+         r0 = r6
+         r2 = r4
+         [r1 + 0x5a4] = r6
+         r1 = [var_ch]
+         r3 = [var_4h]
+         0x6d6f04 ()              // 0x6d6f04(0x0, 0x0, 0x0, 0x0)
+         sp += 0x94
+         r0 = 1
+         pop (r4, r5, r6, r7, r8, sb, sl, fp, pc)
+
+        return r0;
+    loc_0x006d8e18: // orphan
+         r3 = r7
+         r2 = r8
+         r1 = r5
+         0x115f98 ()              // 0x115f98(0x0, 0x0, 0x0, 0x0)
+         (a, b) = compare (r0, 0)
+         je 0x6d8e64              // likely
+
+    loc_0x006d8e64: // orphan
+         r0 = [r6]
+         r1 = [r0 + 4]
+         r0 = r6
+         r1 ()                    // cpsr(0x0, 0x0, 0x0, 0x0)
+         
+         goto loc_0x006d8e34
+    loc_0x006d8e34: // orphan
+         
+    loc_0x006d8dcc: // orphan
+         r0 &= 0xff
+         r4 += 1
+         (a, b) = compare (r0, 0x2f) // '/'
+         ldrbne r0, [r4]
+         cmpne r0, 0
+         bne 0x6d8dcc             // unlikely
+
+         goto loc_0x006d8c88
+    loc_0x006d8c88: // orphan
+         r3 = 0x7f                // '\x7f'
+         [r0] = (byte) r3
+         [r0 + 1] = (byte) r3
+         r2 = 0x4b                // 'K'
+         [r0 + 2] = (byte) r3
+         r1 = 1
+         [r0 + 3] = (byte) r2
+         [r0 + 4] = (byte) r1
+
+}
+
+===== 0x006d959c =====
+// callconv: r0 arm32 (r0, r1);
+void fcn.006d959c (int32_t arg1) {
+    loc_0x006d959c:
+        push (r4, lr)
+        vldr s0, [pc, 0x98]
+        push (d8)
+        sp -= 0xa10
+        r1 = [r0 + 0x44] // arg1
+        r4 = sp
+        (a, b) = compare (r1, 0)
+        je 0x6d9634   // unlikely
+        goto loc_0x006d95bc;
+    loc_0x006d9634:
+        sp += 0xa10
+        pop (d8)
+        pop (r4, pc)
+        goto loc_0x006d95f0;
+        return r0;
+    loc_0x006d95f0:
+        ldrsh r0, [r4], 2
+        (a, b) = compare (r0, 0)
+        rsblt r0, r0, 0
+        (a, b) = compare (r1, r0)
+        movlt r1, r0
+        r2 -= 1
+        bne 0x6d95f0  // likely
+        goto loc_0x006d960c;
+    loc_0x006d960c:
+        s0 = (float) r1 .
+        vldr s1, [pc, 0x2c]
+        vcvt.f32.s32 s0, s0
+        vmul.f32 s16, s0, s1
+        
+    loc_0x006d961c:
+        r0 = [0x006d9624] // [0x6d9648:4]=0x8a8330 // (pstr 0x00844d3b) "rom:/Plus/Sound/"
+        vldr s1, [r0, 8]
+        vdiv.f32 s0, s16, s1
+        r0 = (float) s0 .
+        (a, b) = compare (r0, 0x3f800000)
+        vldrgt s0, [pc, 0x14]
+        return r0;
+    loc_0x006d961c: // orphan
+         r0 = [0x006d9624]        // [0x6d9648:4]=0x8a8330 // (pstr 0x00844d3b) "rom:/Plus/Sound/"
+         vldr s1, [r0, 8]
+         vdiv.f32 s0, s16, s1
+         r0 = (float) s0 .
+         (a, b) = compare (r0, 0x3f800000)
+         vldrgt s0, [pc, 0x14]
+
+}
+
+===== 0x0074f3f4 =====
+// callconv: r0 arm32 (r0, r1);
+int fcn.0074f3f4 (int r0, int r1) {
+    loc_0x0074f3f4:
+        push (r4, lr)
+        fcn.00699d98 ()
+        r1 = [0x0074f404] // [0x74f4c4:4]=0x8a829c // (pstr 0x00844cc8) "Siren14voice.bin"
+        r3 = 0x40     // '@'
+        r2 = 0x1c
+        [r1 + 0x18] = r0
+        r0 = [0x0074f414] // [0x74f4c8:4]=0x8dfb08
+        r1 = [0x0074f418] // [0x74f4cc:4]=0x11a118
+        fcn.001000ac ()
+        r0 += 0x400
+        r0 += 0x308
+        fcn.001162e8 ()
+        r4 = r0 - 0x710
+        r2 = 0x40     // '@'
+        r1 = 0
+        r0 += 8
+        fcn.00116290 ()
+        r4 = r0 - 0x400
+        r2 = 0x40     // '@'
+        r4 -= 0x318
+        r1 = r2
+        r0 += 8
+        fcn.00116290 ()
+        r4 = r0 - 0x720
+        r0 -= 0x10
+        fcn.0011611c ()
+        r3 = r4 + 0x400
+        r3 += 0x308
+        r2 = 0x40     // '@'
+        r1 = 0
+        stm r3, (r1, r2)
+        r0 = r4 + 8
+        [r4] = r1
+        r1 = 1
+        [r4 + 4] = r0
+        
+    loc_0x0074f480:
+        rsb r3, r1, r1, lsl 3
+        r1 += 1
+        add r3, r4, r3, lsl 2
+        r2 = r3 + 8
+        r3 -= 0x14
+        strd r2, r3, [r0, 0x14]
+        r0 = r2
+        r2 = [r4 + 0x70c]
+        (a, b) = compare (r2, r1)
+        bgt 0x74f480  // unlikely
+        goto loc_0x0074f4a8;
+        return r0;
+    loc_0x0074f4a8:
+        r0 = r4 + 0x710
+        fcn.00116288 ()
+        r0 = r4
+        r2 = [0x0074f4bc] // [0x74f4d0:4]=0x100000
+        r1 = fcn.00789cb4 // [0x74f4d4:4]=0x789cb4 fcn.00789cb4
+        pop (r4, lr)
+        goto fcn.00303d78
+        // chop
+        
+    loc_0x00303d78:
+        // JUMP XREF from fcn.0074f3f4 @ 0x74f4c0(x)
+        bx lr
+        return r0;
+}
+

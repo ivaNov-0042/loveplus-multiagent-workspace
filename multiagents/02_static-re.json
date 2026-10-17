@@ -1,0 +1,134 @@
+{
+  "name": "02_static-re",
+  "display": "静态逆向（Siren14 解码链）",
+  "role": "static-re",
+  "client": "opencode",
+  "status": "active",
+  "updated": "2026-10-18T02:48:46+08:00",
+  "focus": "静态定位并还原 Siren14 语音读取/解码函数（只静态，不做动态调试）",
+  "sessions": [
+    {
+      "client": "opencode",
+      "session_id": "ses_eb7ac4333ffehinPc10g5X0tpr",
+      "title": "静态逆向：Siren14 语音读取/解码链（r2/pdg）",
+      "attached_at": "2026-10-17T15:33:38+08:00",
+      "last_seen": "2026-10-17T20:56:02+08:00",
+      "state": "active",
+      "note": "本人已接管（02_static-re 自行 attach 确认）；客户端的标题原本是无关的自动标题，已重命名"
+    },
+    {
+      "client": "opencode",
+      "session_id": "ses_eb4cf5821ffe2JfVAWuVKG34CG",
+      "attached_at": "2026-10-18T02:48:46+08:00",
+      "note": "",
+      "last_seen": "2026-10-18T02:48:46+08:00",
+      "state": "active"
+    }
+  ],
+  "board": [],
+  "todo": [],
+  "claims": {
+    "files": [
+      "data/loveplus/nlp_plus/r2/**",
+      "memory/loveplus/reverse_code_bin.md",
+      "memory/others/diary/2026-10-17_02_static-re.md",
+      "scripts/loveplus/build_r2ghidra.sh"
+    ],
+    "tmp": "/tmp/02_static-re",
+    "resources": [
+      "r2"
+    ]
+  },
+  "memory": [
+    {
+      "path": "multiagents/state/memory/loveplus/reverse_code_bin.json",
+      "role": "maintainer"
+    },
+    {
+      "path": "multiagents/state/memory/loveplus/audio_siren14.json",
+      "role": "contributor"
+    },
+    {
+      "path": "multiagents/state/memory/others/diary/2026-10-17_02_static-re.json",
+      "role": "author"
+    },
+    {
+      "path": "multiagents/state/memory/loveplus/diary/2026-10-17_02_static-re.json",
+      "role": "author"
+    }
+  ],
+  "jobs": [
+    {
+      "name": "r2ghidra 编译（已完成）",
+      "state": "done",
+      "script": "scripts/loveplus/build_r2ghidra.sh",
+      "log": "/tmp/02_static-re/r2ghidra_build2.log",
+      "started": "2026-10-17T15:32",
+      "done": "2026-10-17T15:35",
+      "note": "tag 6.0.7 + ghidra-native 0.6.4 + 补丁；插件 core_ghidra.so 已装 ~/.local/share/radare2/plugins/，pdg 可用"
+    }
+  ],
+  "artifacts": [
+    "data/loveplus/nlp_plus/r2/",
+    "output/loveplus/TODO_siren14.md",
+    "scripts/loveplus/build_r2ghidra.sh",
+    "memory/loveplus/diary/2026-10-17_02_static-re.md",
+    "scripts/loveplus/scan_arm_patterns.py",
+    "memory/loveplus/reverse_code_bin.md",
+    "output/loveplus/report/siren14_decode.md",
+    "scripts/loveplus/verify_siren14_claims.py",
+    "scripts/loveplus/siren_transform.py",
+    "scripts/loveplus/siren14_wav.py",
+    "data/loveplus/nlp_plus/decoded"
+  ],
+  "handoff": "给 01_emu-gui：data/loveplus/nlp_plus/r2/** 与 /tmp/02_static-re 归我；原 /tmp/r2nlp 已迁入 /tmp/02_static-re/r2nlp（不再是共享临时目录）",
+  "history": [
+    {
+      "t": "2026-10-17T15:33:38+08:00",
+      "e": "建档（bootstrap；session_id 由 opencode 库反查确认）"
+    },
+    {
+      "t": "2026-10-17T15:35:00+08:00",
+      "e": "r2dec(pdd) + r2ghidra(pdg) 装好；5 个 Siren14 相关函数出 pdg C（data/loveplus/nlp_plus/r2/fcn_*.pdg.c）"
+    },
+    {
+      "t": "2026-10-17T15:40:46+08:00",
+      "e": "本人 attach 接管；确认身份 02_static-re"
+    },
+    {
+      "t": "2026-10-17T15:47:56+08:00",
+      "e": "修正档案：改会话标题；claims 补齐实际占有文件；临时目录迁到 /tmp/02_static-re"
+    },
+    {
+      "t": "2026-10-17T15:49:40+08:00",
+      "e": "清理 /tmp 残留：删 r2toolvenv(24M)/r2ghidra.deb(12M)/r2ghidra_pkg(35M)/piptest(28K)；临时目录统一 /tmp/02_static-re（18M，含 r2nlp）"
+    },
+    {
+      "t": "2026-10-17T16:09:52+08:00",
+      "e": "证伪 0x6bccd4=解码器（实为触笔输入状态机）；查明 SDNM 实为 .csidbin 头，非 .spp；建 loveplus 日记"
+    },
+    {
+      "t": "2026-10-17T16:28:46+08:00",
+      "e": "读取链全链贯通：id*8 索引→(off,size)→区间读 .spp；.dpb={23,1,1,16}→码率18400/采样率参数14000(28region/640样本)；定位解码器初始化 0x142568 与驱动 0x68b950/0x68b174"
+    },
+    {
+      "t": "2026-10-17T16:28:46+08:00",
+      "e": "证伪 0x6bccd4=解码器（实为触笔状态机）；SDNM 实为 .csidbin 头；新增 scan_arm_patterns.py"
+    },
+    {
+      "t": "2026-10-17T16:46:04+08:00",
+      "e": "定位解码核心：用参考实现整数表反查（vector_dimension@0x801e34 / number_of_vectors@0x801e94 / expected_bits_table@0x8bd118）→ G.722.1 实现库 0x75c000-0x767000；帧解码入口 0x75e69c（4/5-bit 速率控制 + MSB-first 位读器），子函数 0x75e0c0(env,−7) / 0x75c3dc(categorize) / 0x75e2b8(decode_vector)；解码器对象静态内嵌 obj+0x4000+i*0x800+0x98；变换层 0x76b67c（浮点）"
+    },
+    {
+      "t": "2026-10-17T16:46:04+08:00",
+      "e": "对照 FFmpeg siren.c：结构/表/常量逐项一致，但 FFmpeg 只有 14-region 支（FRAME_SIZE 320、rate_control 4bit/16），本作 28-region 支为 28/640/5bit/32 → 既有 Python 移植需重新参数化；自定义码率无碍（按包长算可用位数）"
+    }
+  ],
+  "skills": [
+    "multiagent-workflow",
+    "repo-conventions",
+    "quant-analysis-rules",
+    "report-writing",
+    "loveplus-siren14-re"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "title": "工具链排查（2026-10-17）：给 r2 6.0.7 装 r2dec(pdd) 与 r2ghidra(pdg)",
+  "preamble": "> 与具体主题无关的环境排查，按 skill `multiagent-workflow`「记忆」放 `memory/others/`。\n> 相关：`memory/loveplus/reverse_code_bin.md`（这条工具链服务的逆向工作）",
+  "sections": [
+    {
+      "title": "0. 结论速查",
+      "body": "| 目标 | 结果 | 关键动作 |\n| --- | --- | --- |\n| `pdd`（r2dec） | ✅ 可用 | 依赖 meson+ninja → `uv pip install meson ninja` 进项目 venv，再 `r2pm -ci r2dec` |\n| `pdg`（r2ghidra） | ✅ 可用 | 编 **tag 6.0.7**（别用 master）→ `scripts/loveplus/build_r2ghidra.sh` |\n| GitHub 直连 | 间歇性 | 通时几十 ms；抖时 `curl 28` / `Failed to connect … port 443 after 13x s`。长期方案是用镜像前缀 |",
+      "id": "01"
+    },
+    {
+      "title": "1. 通用踩坑（比 r2 本身更重要）",
+      "body": "1. **`env PATH=…:$PATH cmd` 必须加引号**。本机 `$PATH` 里有 `/mnt/c/Program Files/...`\n   （WSL），不加引号会按空格拆成两段 → `env: 'Files': Permission denied`。\n   正确写法：`env PATH=\"$REPO/.venv/bin:$PATH\" cmd`。\n2. **`pkill -f` / `pgrep -f` 会匹配到执行它的那个 shell**，把自己 SIGTERM 掉。\n   安全写法：`ps -eo pid,args | awk '/<正则>/ && !/awk/ {print $1}'` 再逐个 kill。\n   （实测被 `pkill -f 'git clone …'` 干掉过一次。）\n3. **`setsid nohup … </dev/null &` 才能真脱会话**；不要用裸 `nohup … &`。\n   起完用 `ps -o pid,ppid,sid,args` 确认 `ppid=/init` 且 `sid` 自成一组。\n4. **日志别丢**：把 `setsid nohup cmd >/dev/null 2>&1` 里的 `cmd` 内部输出重定向到自己的日志文件\n   （`cmd >>\"$LOG\" 2>&1`），否则失败时只剩\"失败\"两字，看不到编译器报错。\n5. **meson/ninja 不是库**，但可以由项目 venv 提供：`uv pip install meson ninja`（用户指定用项目 venv）。",
+      "id": "02"
+    },
+    {
+      "title": "2. r2dec（`pdd`）",
+      "body": "```bash\nuv pip install meson ninja                                   # 项目 venv，提供 meson/ninja\ncd <repo> && uv pip install meson ninja    # 在仓库根执行\nPATH=\"$PWD/.venv/bin:$PATH\" r2pm -ci r2dec                   # 先 r2pm -U 更新包库（首次必须）\n```\n\n- 产物：`~/.local/share/radare2/plugins/libcore_pdd.so`。\n- **`r2 -L | grep r2dec` 查不到**（插件注册名是 `pdd`，`-L` 里也不显 ghidra），别用它判断成败；\n  以 `pdd` 能出结果为准。\n- 质量评价：对 ARM 条件执行（`ldreq`/`strbeq`）会**拉平语义**，伪代码易读错；含跳转表的函数会输出\n  碎片（`// orphan`、`Failed to retrieve block`）。能用但不理想。",
+      "id": "03"
+    },
+    {
+      "title": "3. r2ghidra（`pdg`）—— 三个坑连着的",
+      "body": "### 坑 A：master 与 r2 6.0.7 ABI/API 不兼容\n`r2pm -ci r2ghidra` 默认编 master，报：\n`sdb_const_getf` / `r_anal_cc_argloc` / `RPVector 无 _start` / `sdb_const_get` 等一大片未声明。\n→ 必须 checkout 与 r2 **同版本**的 tag（`R2G_TAG`，本机 6.0.7）。\n\n### 坑 B：Release 的 amd64.deb 装了也不工作\n`r2ghidra_6.0.7_amd64.deb`（内 `usr/lib/radare2/6.0.7/core_ghidra.so`）解包装上后：\n`WARN: ABI version mismatch: (ABI 14) vs radare2 (ABI 39)` → `pdg` 仍报 \"You need to install the plugin…\"。\n即该 deb 是拿别的 r2 编的，**不能用**（6.0.7 release 没有 linux 源码之外的可用二进制）。\n\n### 坑 C：subprojects 依赖的离线准备（核心）\ntag 的 `subprojects/*.mk` 是 acr-wrap 自动生成，构建期会：\n1. `git clone` + `git fetch --depth=1 origin <sha>`：**「未通告对象」的 shallow fetch 在 GitHub 上会卡死**\n   （实测 5 分钟进度不动）；github 直连本机还间歇超时。\n2. `pugixml` 的 revision 写成 **tag 名 `v1.15`**，而检查用 `git rev-parse HEAD`（SHA）比较 → **永远不等**\n   → 每次 `make` 都 `rm -rf` 重拉。\n3. 打桩 mk 成 no-op 又会让**依赖补丁不再应用** —— `ghidra-native` 的 `getLanguageDescriptions`\n   正是补丁 `0002-make-sleigharch-public.patch` 注入的，不打补丁编不过\n   （`error: 'getLanguageDescriptions' was not declared in this scope`）。\n\n`scripts/loveplus/build_r2ghidra.sh` 把三件事一起解决：**多镜像备依赖 → 按\n`WRAP_wrap_git_diff_files` 自行 `patch -p1` → 打桩 mk → configure/make/user-install**。\n\n可用镜像前缀（实测 `git ls-remote`/`clone` 均 OK）：\n`https://ghfast.top/`、`https://gitclone.com/`（写法 `https://gitclone.com/github.com/<user>/<repo>`）、\n`https://gh-proxy.com/`；zlib 另有 gitee 官方镜像 `https://gitee.com/mirrors/zlib.git`。\n国内镜像 **7 秒**克隆完 zlib，直连 github 则常常整分钟超时。",
+      "id": "04"
+    },
+    {
+      "title": "4. 最终可用命令",
+      "body": "```bash\n# 后台编译（可重跑，幂等）\nsetsid nohup scripts/loveplus/build_r2ghidra.sh >/dev/null 2>&1 </dev/null &\ntail -f /tmp/02_static-re/r2ghidra_build.log      # 默认日志（/tmp/<agent>/ 隔离）\n\n# 用法（ARM32、基址 0x100000 的固件）\nr2 -q -a arm -b 32 -m 0x00100000 -c 'af @ 0x<addr>' -c 's 0x<addr>' -c pdg <bin>\n```\n\n产物：`~/.local/share/radare2/plugins/core_ghidra.so` + `r2ghidra_sleigh/`\n（sleigh 取自 deb 里的 6.0.7 版本，放进用户插件目录；插件编译时把\n`R2GHIDRA_SLEIGHHOME_DEFAULT` 指到这里）。\n\n**注意**：r2 偶发把 ARM 代码误判成 Thumb（`af` 后出 \"unaligned\" 垃圾），\n先 `ahb 32 @ <addr>` 写 bits 提示再 `af`/`pdg`。",
+      "id": "05"
+    },
+    {
+      "id": "06",
+      "title": "十五、卡带文件系统与脚本容器打通（新任务阶段成果）",
+      "agent": "02_static-re",
+      "updated": "2026-10-17 20:58",
+      "body": "新任务「语音 id ↔ 剧本情景」推进；今日打通 **RomFS 数据侧**：\n\n1. **卡带布局**：patched 卡带非标准 RomFS；文件项表 @0x45E000（2382 项），虚拟 offset → 明文 = **+0x496F80**。\n   `romfs_extract.py` 提出全部 535 个脚本（SBN2）→ `data/loveplus/nlp_plus/script/`。\n2. **SBN2 三层解密**（借 gdkchan/NLPTextTool，已迁 `repos/NLPTextTool/`）：每层 `magic4+Key4` 起、\n   `out[i]=data[i]^(key[i%3]+seed*(i//3))`；`sbn2_parse.py` 实现并验证。\n3. **内层全是 SOB2 = Dream VM 字节码**（`Dream::ScriptProcess` @VA 0x27E9B7 佐证）；\n   文本与语音 id（如 55655）都不在明文——下轮挖字符串池/加载器（`rom:/script/bin/script` @VA 0x6EEA35 一带）。\n4. TextResource PAK 实为字体（FNTB），排除。\n5. **远期 TODO 已登记（5.2，主题 7）**：语音替换/中文配音（TTS 音色克隆 → G.722.1 重编码 → .spp 重打包 → 回写 ROM）。\n\n脚本落 `scripts/loveplus/02_static-re/`（romfs_extract / extract_scripts / sbn2_parse）；\nmemory `reverse_code_bin.md` §6；TODO/SCRIPTS.md 同步。\n\n**教训（流程坑）**：memory 的真源是 `multiagents/state/memory/**/*.json`，`memory/**/*.md` 只是导出视图。\n用 `file append` 直接改 md 后再跑 `memory export --write` 会**无警告抹掉手工编辑**；\n正确通道是 `agentctl.py memory append/set <档> --section … --file …`。本轮已把 §6 经正确通道重写进真源。"
+    },
+    {
+      "id": "07",
+      "title": "十六、脚本→语音映射：静态穷举结论（新任务阶段成果）",
+      "agent": "02_static-re",
+      "updated": "2026-10-17 23:04",
+      "body": "本会话核心任务「脚本→语音 id 映射」推进；结论确定：**数据侧无解，只能走动态追踪**。\n\n1. **解密语义纠偏（关键）**：SOB2 块 = `magic(4)+key(4)` 明文 + 密文；正确 payload = `xor_stream(blk,key,0)[8:]`（keystream 按**绝对位置**，前 8B 不入密文）。\n   之前误用 `xor_stream(blk[8:],key,0)`（把位置归零 → keystream 错位 → 假阳性）。\n2. **静态穷举全否定**：\n   - 语音 id 不在 SOB2 明文：13 个已知长 id 在全 535 文件仅各 8–16 次命中（噪声级）；`[10000,70000]` 区间 148 万次均匀分布命中；\n     高频值 12800/13568/18432 实为操作码字节（`32 01`/`35 00`/`48 00`）被对齐 u16 误读。\n   - 38123 个内层块**全是 SOB2**，0 个 SDL2 → NLPTextTool（只解 SDL2）对本作不可用。\n   - SOB2 体无 UTF-16LE 对白（最长 CJK 连续段仅 2–6 码元）。\n   - `.sbin2` 是 PAK 归档（a000.sbin2 含 2364 个 `PAK ` 子文件），非对白/语音表。\n   - ROM 文件表 2381 项无独立 voice-map。\n3. **运行时衔接点已定位（code.bin）**：`play_voice` @`0x6d854c`，id 是槽号 0–15，真实大 id 在 16 槽 `slot[i].id`(`ctx+i*0x14+0x7c`)；\n   `0x6d8280`/`0x6d870c` 两薄封装无 `bl`/字面量引用 → 经 vtable 间接触发（脚本命令分发入口）；\n   SOB2 加载器 @`0x1dd2d4`；UTF-16LE 解码 @`0x6ee890`。\n4. **下一步 = 模拟器 + GDB 动态追踪**：MCP `start_emulator(gdb=true)` 连 `127.0.0.1:24689`，在 `play_voice`(`0x6d854c`) 或槽写入点下断，\n   抓 (脚本文件, VM pc)→(slot, 大 id)，回溯压入 id 的 SOB2 操作码。**前提**：需 ARM gdb（`apt install gdb-multiarch`；\n   系统 `/usr/bin/gdb` 是 x86_64-only；本地 `tools/bin/gdb-multiarch.real` 缺 libpython3.12）。\n5. **用户决策**：本轮暂停（`先暂停，留待后续`）。模拟器已停，结论已落 `reverse_code_bin.md` §7（第 19 节）并 verify 全绿，简报已生成（`multiagents/report/2026-10-17_2300_02_static-re.md`）。\n\n**教训**：静态判定「语音 id 在/不在」前必须先确认解密 keystream 起点；`xor_stream(data,key,0)[8:]` 才对。\nEOF"
+    }
+  ],
+  "source": "memory/others/diary/2026-10-17_02_static-re.md",
+  "updated": "2026-10-18T01:24:18+08:00"
+}

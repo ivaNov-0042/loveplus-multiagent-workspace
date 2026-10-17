@@ -1,0 +1,49 @@
+{
+  "started_at": "2026-10-17T20:38:43+08:00",
+  "schema": 1,
+  "updated": "2026-10-17T20:38:50+08:00",
+  "steps": [
+    {
+      "id": "1",
+      "title": "自报家门",
+      "state": "todo"
+    },
+    {
+      "id": "2",
+      "title": "问清这次要研究什么，据此定目录",
+      "state": "todo"
+    },
+    {
+      "id": "3",
+      "title": "配路径",
+      "state": "todo"
+    },
+    {
+      "id": "4",
+      "title": "建虚拟环境装依赖",
+      "state": "todo"
+    },
+    {
+      "id": "5",
+      "title": "同步 skill 镜像",
+      "state": "todo"
+    },
+    {
+      "id": "6",
+      "title": "认领身份",
+      "state": "todo"
+    },
+    {
+      "id": "7",
+      "title": "建研究主题",
+      "state": "todo"
+    },
+    {
+      "id": "8",
+      "title": "报告初始化结果与下一步建议",
+      "state": "todo"
+    }
+  ],
+  "complete": true,
+  "completed_at": "2026-10-17T20:38:50+08:00"
+}

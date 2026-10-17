@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "title": "杂项记录 2026-10-16：9router 路由排查（凌晨改派到 mimo / 日志能不能回溯）",
+  "preamble": "> 非 loveplus 游戏内容，环境与工具链排查。主题：**为什么 2026-10-16 凌晨的 opencode 会话看起来\n> 被路由到 opencode 的 `mimo-v2.6-flash-free`**，以及 **9router 的日志能否回溯**。\n>\n> 2026-10-17：占位名由 `00_emanon` 改为 `un_emanon`（小写；`emanon` 即 `no name` 倒写，`un_` 前缀\n> 标示\"未归属\"，与 `00_`–`99_` 编号的 agent 区分），本档与本视图随之改名。上述 `source` 指向的旧路径\n> 是当时的手写原件，归档在 `archive/loveplus/memory_md_2026-10-17/others/diary/2026-10-16_00_emanon.md`，未再回改。",
+  "sections": [
+    {
+      "title": "一句话结论",
+      "body": "- opencode 库里记的始终是它**请求**的模型：`9router/cbcn/hy3`、`cbcn/hy4-preview`、\n  `cbcn/glm-5.3-flash`（从没出现过 mimo）。\n- 是 **9router** 把其中一部分请求**改派**给了它的免费上游\n  `opencode/mimo-v2.6-flash-free`（provider 别名 `oc`，UI 名 \"OpenCode Free\"，\n  `baseUrl=https://opencode.ai`，`noAuth`，category `free`）。\n- **9router 没有日志文件**：运行时日志只写终端（`--log` = 显示到终端，不是落盘）；\n  能回溯的只有 `~/.9router/db/data.sqlite` 的 `usageHistory`。",
+      "id": "01"
+    },
+    {
+      "title": "一、可复算的证据",
+      "body": "窗口取 **CST 2026-10-15 22:00 → 2026-10-16 09:30**（= UTC 10-15T14:00 → 10-16T01:30）。\n\n9router `usageHistory` 在该窗口只有 102 行：\n\n| 时刻(CST) | `opencode/mimo-v2.6-flash-free` | `codebuddy-cn/*` |\n| --- | --- | --- |\n| 22:00 | 3 | 0 |\n| 23:00 | 10 | 0 |\n| 00:00 | 6 | 2 (hy3) |\n| 01:00 | 8 | 0 |\n| 02:00 | 15 | 0 |\n| 03:00 | 14 | 0 |\n| 04:00–07:00 | **0** | 0 |\n| 05:00 | 0 | 1 (glm-5.3-flash) |\n| 08:00 | 40 | 0 |\n| 合计 | **96** | **6** |\n\n同期 opencode 记了 1464 条带 token 的 assistant 消息（按请求模型：`cbcn/glm-5.3-flash` 651、\n`cbcn/hy3` 538、`cbcn/hy4-preview` 197、`opencode/deepseek-v4.1-flash-free` 78）。\n\n**指纹对齐（口径固定，勿改）**：对同一次请求，\n`9router.promptTokens = message.tokens.input + message.tokens.cache.read − 2000`，\n`9router.completionTokens = message.tokens.output + message.tokens.reasoning`，\n`reasoning_tokens` 逐字节相同。\n样例：22:54:14 消息 `in=41503 cr=3136 out=147 r=503` ↔ 22:54:50 行 `p=42639 c=650`（503 精确相等）。\n窗口内 102 行中有 101 行能在 ±15 分钟内找到精确匹配的 opencode 消息。\n\n**时间相关性（最硬的一条）**：mimo 行只出现在请求 `cbcn/hy3`、`cbcn/hy4-preview` 的时段；\n纯 `glm-5.3-flash` 的 04:00–07:00 一行为 0；08:13 切回 hy3 后立刻又出现 40 行。\n与 opencode 会话说 `model-switched` 时间线吻合（hy3 02:54 → glm-5.3-flash 03:43 → hy3 08:13）。\n\n> 注意：指纹匹配要**从「行→消息」方向**用（一行对一消息）。反向会重复计数——\n> 相同 prompt 会产出相同 token 三元组（例如 `p=42623/42639` 反复出现）。",
+      "id": "02"
+    },
+    {
+      "title": "二、机制（9router 侧）",
+      "body": "- provider 注册表里 `oc` = **OpenCode Free**：`{id:\"opencode\", alias:\"oc\", category:\"free\",\n  noAuth:true, transport:{baseUrl:\"https://opencode.ai\", forceStream:true}}`。\n- 免费兜底模型在代码里**硬编码**为 `oc/mimo-v2.6-flash-free`（capacity-adapter 助手池为空时的\n  默认值；dashboard 文案即 \"will fallback to oc/mimo-v2.6-flash-free\"），README 的\n  \"Auto fallback — Subscription → Cheap → Free\" 与 UI 文案「按订阅、低价和免费层级路由，自动回退」同源。\n- chat 入口：`v = t8(body)`（判定所需能力，如 vision/reasoning）→ `R8([model], v, settings)`\n  扩充候选（capacity adapter）→ 候选 >1 时打印 `Capacity adapter for [...] on \"…\" → trying …`\n  并交给 combo runner（内含 `COMBO auto-switch` / `FALLBACK ⇄ ACC:` 分支）。",
+      "id": "03"
+    },
+    {
+      "title": "三、两个会误导判断的坑（均已实测复现）",
+      "body": "### 坑 1：9router 对 opencode 的流量严重少记，用量页/日志**不能当全部请求看**\n\n9router 只在**客户端把 SSE 读到底**时才写 `usageHistory`；opencode（ai-sdk）拿到 `usage`\n分片就断开连接，于是不落库。实测（2026-10-16 10:1x CST）：\n\n- `opencode run -m 9router/cbcn/glm-5.3-flash \"…\"`（直连 9router）→ **新增 0 行**；\n- 同一请求（含 opencode 的 12 个 tools、`store:false`、`stream_options`、opencode 专有 header）\n  经 curl 或经本地反向代理转一手 → **1 行**；\n- 裸 socket 模拟：读到 `\"usage\"` 立即 close → **0 行**；继续读到 `data: [DONE]` → **1 行**。\n\n所以「opencode 记 1464 条 / 9router 记 102 行」的 7% 是记录机制造成的，\n**不是**「流量去了别的 9router 实例」。推论：96 行 mimo 属于 9router 主动改派时留下的内部记录，\n可当「**至少** 96 次改派」的下限；真实占比无法由该表反推。\n\n### 坑 2：opencode 免费层级只接受「来自 opencode 的请求」\n\n直接从 9router 打 `oc/mimo-v2.6-flash-free` 返回\n`403 FreeTierError: OpenCode's free tier can only be used from within OpenCode.`\n即该兜底链能成功，依赖客户端（opencode）header 被 9router 透传（此条为**推断**，未逐项验证）。",
+      "id": "04"
+    },
+    {
+      "title": "四、9router 日志：现状与抓取办法",
+      "body": "- `~/.9router/logs/` 只有一个空的 `mitm/` 子目录；全盘无 9router 写的 `*.log`。\n  当前进程 281306（09:24:14 启动）的 fd 0/1/2 全部指向 **`/dev/pts/5`**。\n- 该 pty 是 tmux 窗口 **`loveplus:1.0`**。`tmux capture-pane -p -t loveplus:1.0 -S -200000`\n  可取回滚缓冲，但**当前只有 57 行**（09:24 那次启动的菜单 + 一次 Hide to Tray）；\n  交互式 TUI 走 alternate screen，**凌晨的日志行已不可回溯**。\n- Web UI 日志页 `/api/usage/logs`（`requestDetails`/`usageHistory` 派生，取最近 50 行）需登录（401）。\n- 抓现行（下次要留证据时用其一）：\n  1. 重启时 `9router --log 2>&1 | tee ~/.9router/logs/router.log`（无内置落盘选项，只能这样接）；\n  2. 不改启动方式，实时 `tmux capture-pane -t loveplus:1.0` 捞\n     `▶ POST … · FMT … · ACC:…`、`📊 [USAGE]`、capacity-adapter 的 `trying …` 等行。",
+      "id": "05"
+    },
+    {
+      "title": "五、未定论",
+      "body": "- **改派触发条件未确定**：凌晨两个 codebuddy-cn 账号都启用（`rateLimitedUntil=null`，\n  个体号 Account 2 是 10-16 09:18 才停用的），无错误记录；`requestDetails` 表为空\n  （observability 未开），失败请求不落 `usageHistory`。候选解释：capacity adapter 的容量判定\n  与上游 4xx 回退，二者产生相同表象，**没有运行时日志无法区分**。\n- 当前配置**已不复现**：实测 `cbcn/hy3`、`cbcn/glm-5.3-flash` 都正常走 codebuddy-cn。",
+      "id": "06"
+    },
+    {
+      "title": "六、本次排查留下的痕迹（未清理）",
+      "body": "- `~/.9router/db/data.sqlite` `usageHistory` 新增 **24 行**（id 322–345），全为 codebuddy-cn 小请求。\n- opencode 库新增 **6 个探测会话**（`session_v2.directory='/tmp/opencode/9r_probe'`，\n  title `ok/pong/alpha/beta`，各 3 条消息）。\n- 临时文件 `/tmp/opencode/9r_probe/`（`mock.py`、`proxy.py`、`requests.jsonl`、`oc.json`、`oc9.json`）；\n  mock/proxy 进程已杀。`/tmp/loveplus_shots/` 未动。",
+      "id": "07"
+    },
+    {
+      "title": "七、复查命令（只读）",
+      "body": "```bash\n# 9router 窗口内各 provider/model 计数\npython3 -c \"\nimport sqlite3,datetime,collections\nc=sqlite3.connect('file:$HOME/.9router/db/data.sqlite?mode=ro',uri=True)\nh=collections.Counter()\nfor ts,p,m in c.execute(\\\"select timestamp,provider,model from usageHistory where timestamp>='2026-10-15T14:00:00'\\\"):\n    t=datetime.datetime.strptime(ts[:19],'%Y-%m-%dT%H:%M:%S')+datetime.timedelta(hours=8)\n    h[(t.strftime('%m-%d %H'),p,m)]+=1\n[print(k,v) for k,v in sorted(h.items())]\"\n\n# opencode 侧按模型的小时分布\npython3 -c \"\nimport sqlite3,json,datetime,collections\nc=sqlite3.connect('file:$HOME/.local/share/opencode/opencode.db?mode=ro',uri=True)\nh=collections.Counter()\nfor tc,d in c.execute(\\\"select time_created,data from session_message where type='assistant'\\\"):\n    t=datetime.datetime.fromtimestamp(int(tc)/1000)\n    if t<datetime.datetime(2026,10,15,22): continue\n    m=(json.loads(d).get('model') or {})\n    h[(t.strftime('%m-%d %H'),m.get('providerID'),m.get('id'))]+=1\n[print(k,v) for k,v in sorted(h.items())]\"\n\n# 捞 9router 运行时日志（当前进程）\ntmux capture-pane -p -t loveplus:1.0 -S -2000\n```",
+      "id": "08"
+    }
+  ],
+  "source": "memory/others/diary/2026-10-16_00_emanon.md",
+  "updated": "2026-10-18T01:24:18+08:00"
+}

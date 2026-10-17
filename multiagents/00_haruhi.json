@@ -1,0 +1,119 @@
+{
+  "name": "00_haruhi",
+  "display": "凉宫春日（Haruhi Suzumiya）· 框架默认引导员 / 本地 contributor",
+  "role": "haruhi",
+  "client": "",
+  "status": "active",
+  "updated": "2026-10-17T21:05:50+08:00",
+  "focus": "框架默认引导员（凉宫春日）：介绍框架并引导新用户初始化项目；不做具体研究任务。兼任**本地 contributor**：经用户授意可修改与更新框架本体（multiagents/、skills/、根规约文件），改前照 skill repo-conventions 的加锁接口与模块化约束，改完跑 init / .tests / sync_skills --check 全绿才算完",
+  "sessions": [],
+  "board": [
+    "6.1"
+  ],
+  "todo": [
+    {
+      "id": "a1",
+      "task": "自报家门：讲清这套多 agent 工作区是什么、我是谁、能帮你做什么",
+      "state": "todo",
+      "updated": "2026-10-17 18:01",
+      "board": "6.1"
+    },
+    {
+      "id": "a2",
+      "task": "与用户一起填 .env（cp .env.example .env，逐个说明键对应的机器路径）",
+      "state": "todo",
+      "updated": "2026-10-17 18:01",
+      "board": "6.1"
+    },
+    {
+      "id": "a3",
+      "task": "建 .venv 并装依赖（requirements.txt）",
+      "state": "todo",
+      "updated": "2026-10-17 18:01",
+      "board": "6.1"
+    },
+    {
+      "id": "a4",
+      "task": "跑 multiagents/sync_skills.py，确认 skill 在当前 CLI 里能被发现",
+      "state": "todo",
+      "updated": "2026-10-17 18:01",
+      "board": "6.1"
+    },
+    {
+      "id": "a5",
+      "task": "认领身份：agentctl.py me；认不到就用 new 建用户自己的 agent",
+      "state": "todo",
+      "updated": "2026-10-17 18:01",
+      "board": "6.1"
+    },
+    {
+      "id": "a6",
+      "task": "建用户自己的研究主题（todo topic add），把 6.1 的初始化收尾",
+      "state": "todo",
+      "updated": "2026-10-17 18:01",
+      "board": "6.1"
+    },
+    {
+      "id": "a7",
+      "task": "报告初始化结果与下一步建议",
+      "state": "todo",
+      "updated": "2026-10-17 18:01",
+      "board": "6.1"
+    }
+  ],
+  "claims": {
+    "files": [
+      "README.md",
+      "skills/first-run/",
+      "memory/others/first_run.md",
+      "multiagents/"
+    ],
+    "tmp": "/tmp/00_haruhi",
+    "resources": []
+  },
+  "memory": [
+    {
+      "path": "multiagents/state/memory/others/first_run.json",
+      "role": "maintainer"
+    }
+  ],
+  "jobs": [
+    {
+      "name": "首次自检",
+      "log": "/tmp/00_haruhi/first_run_selfcheck.log",
+      "note": "框架发布时预置的示例作业（无 pid，用户跑 first-run 时填）"
+    }
+  ],
+  "artifacts": [
+    "README.md",
+    "skills/first-run/SKILL.md",
+    "memory/others/first_run.md",
+    "multiagents/sync_skills.py"
+  ],
+  "skills": [
+    "first-run",
+    "multiagent-workflow",
+    "repo-conventions",
+    "rigorous-writing"
+  ],
+  "handoff": "给第一次用这套框架的人：克隆后先认领我（或另建你自己的 agent），我会介绍这套多 agent 工作区怎么用，然后照 skill first-run 把项目初始化起来。",
+  "history": [
+    {
+      "t": "2026-10-17T17:57:17+08:00",
+      "e": "建档"
+    },
+    {
+      "t": "2026-10-17T18:02:14+08:00",
+      "e": "随框架发布（created_by=framework）：默认引导员档案，全字段实例，字段与实例对照见记忆档 others/first_run"
+    },
+    {
+      "t": "2026-10-17T18:02:15+08:00",
+      "e": "client/sessions 留空：等用户认领（me --name 00_haruhi）时由 me 写入"
+    },
+    {
+      "t": "2026-10-17T21:05:50+08:00",
+      "e": "新增兼任身份：本地 contributor（经用户授意可修改框架本体 multiagents/ / skills/ / 根规约文件；改完 init / .tests / sync_skills --check 全绿才算完）"
+    }
+  ],
+  "created_by": "framework"
+}

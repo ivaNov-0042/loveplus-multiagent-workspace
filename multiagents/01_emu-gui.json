@@ -1,0 +1,143 @@
+{
+  "name": "01_emu-gui",
+  "display": "模拟器 / GUI（本机 azahar 运行与流程驱动）",
+  "role": "emu-gui",
+  "client": "opencode",
+  "status": "active",
+  "updated": "2026-10-18T02:03:10+08:00",
+  "focus": "身份获取（me/new）与进展简报（report）已并入 agentctl.py；待用户 /mcps 重启 MCP 后回到 2.1",
+  "sessions": [
+    {
+      "client": "opencode",
+      "session_id": "ses_ebc583d2cffenwDwrfKU51CWUS",
+      "title": "SSH到tx-new拉取loveplus项目",
+      "attached_at": "2026-10-17T15:45:00+08:00",
+      "last_seen": "2026-10-18T02:03:10+08:00",
+      "state": "active",
+      "note": "同一条线（emu-gui）另有会话 ses_eb7b69b4cffePF7o6eUEaqGgrL「给 Qt 前端加控制通道」"
+    }
+  ],
+  "board": [
+    "2.1",
+    "2.2",
+    "2.3",
+    "2.4",
+    "2.5",
+    "2.6",
+    "2.7",
+    "3.1",
+    "4.3"
+  ],
+  "todo": [
+    {
+      "id": "a1",
+      "task": "重启 GUI 后确认 extdata 被识别、能载入 DATA No.01（2.1 的下一步）",
+      "state": "todo",
+      "updated": "2026-10-17T15:50:00+08:00"
+    }
+  ],
+  "claims": {
+    "files": [
+      "memory/loveplus/diary/2026-10-17_01_emu-gui.md",
+      "TODO.md",
+      "multiagents/agentctl.py"
+    ],
+    "tmp": "/tmp/01_emu-gui",
+    "resources": [
+      "azahar-gui"
+    ]
+  },
+  "memory": [
+    {
+      "path": "multiagents/state/memory/loveplus/diary/2026-10-17_01_emu-gui.json",
+      "role": "maintainer"
+    },
+    {
+      "path": "multiagents/state/memory/loveplus/diary/2026-10-16_01_emu-gui.json",
+      "role": "maintainer"
+    },
+    {
+      "path": "multiagents/state/memory/loveplus/diary/2026-10-14_01_emu-gui.json",
+      "role": "maintainer"
+    },
+    {
+      "path": "multiagents/state/memory/loveplus/headless_azahar.json",
+      "role": "contributor"
+    },
+    {
+      "path": "multiagents/state/memory/loveplus/touch_coords_nlpplus.json",
+      "role": "contributor"
+    }
+  ],
+  "jobs": [],
+  "artifacts": [
+    "scripts/loveplus/run_gui.sh",
+    "tools/azahar/build_qt/bin/Release/azahar",
+    "tools/azahar/build_headless/bin/Release/azahar_headless",
+    "multiagents/",
+    "archive/loveplus/TODO_root_2026-10-17.md",
+    "multiagents/agentctl.py",
+    "multiagents/SCRIPTS.md",
+    "archive/loveplus/migrate_memory_layout_2026-10-17.py",
+    "tools/azahar",
+    "tools/3dstool",
+    "multiagents/state/todo.json",
+    "multiagents/state/todo.footer.md",
+    "archive/loveplus/TODO_board_md_2026-10-17.md",
+    "multiagents/state/memory",
+    "archive/loveplus/memory_md_2026-10-17",
+    "output/quick-report/",
+    "output/quick-report/"
+  ],
+  "handoff": "给 02_static-re：协议更新——改项目通用文件（代码库本体、multiagents/、scripts/、skills/、配置、真源、规则、README.md）一律走 `agentctl.py file edit|write|append <路径> …`；CLI 原生 edit 没有跨进程互斥、同改一个文件会丢更新（实测 12 并发不加锁丢 8 行）。agent 档案/任务板/记忆真源走 `json`/`todo`/`memory`，与 `file` 是同一把锁；自己独占的产物可用原生 edit。拿不准先 `agentctl.py file who <路径>`。",
+  "history": [
+    {
+      "t": "2026-10-17T15:45:00+08:00",
+      "e": "建档（bootstrap；session_id 由 opencode 库反查确认）"
+    },
+    {
+      "t": "2026-10-17T15:50:00+08:00",
+      "e": "根 TODO.md 迁移为项目任务板（主题 1-5），三份旧 TODO 归档到 archive/loveplus/TODO_*_2026-10-17.md"
+    },
+    {
+      "t": "2026-10-17T16:00:00+08:00",
+      "e": "记忆布局迁移：<项目>/<主题>.md + <项目>/diary/<日期>_<agent>.md（脚本 migrate_memory_layout.py，27 处引用改写）；归属不明用 00_emanon；AGENTS.md/README/MEMORY.md 同步更新"
+    },
+    {
+      "t": "2026-10-17T16:04:21+08:00",
+      "e": "统一工具：multiagents/agentctl.py 合并 agentlib.py，新增 json 子命令（get/set/add/remove/history/touch/memory/job/handoff/artifact）；脚本集从 scripts/multiagents/ 整体迁入 multiagents/（长度规约豁免，理由写在文件头）"
+    },
+    {
+      "t": "2026-10-17T16:07:56+08:00",
+      "e": "记忆迁移脚本已归档到 archive/loveplus/migrate_memory_layout_2026-10-17.py（保留旧→新路径映射表，root 推断改为向上找 AGENTS.md）；multiagents/SCRIPTS.md 重写（单一工具 + json 速查 + 常见坑）；AGENTS.md 增「多 agent 并行」第 7 条与「脚本编写」例外条目、目录表 multiagents 行改为含工具"
+    },
+    {
+      "t": "2026-10-17T16:16:33+08:00",
+      "e": "工具目录迁移：azahar/3dstool → tools/（构建树 2508 文本文件改写、跳过 613 二进制；Qt 二进制靠 LD_LIBRARY_PATH；sync 排除远端旧布局；回滚了模拟器数据目录 ~/.local/share/azahar 的误改；顺带修 todo --owner 缺省值）"
+    },
+    "任务板改 JSON 真源 + 导出视图：multiagents/state/todo.json（+ todo.footer.md），根 TODO.md 变生成物；新增 todo note/topic/export/verify（写后自动重导）；迁移 20 条零丢失，diff 只剩表头与 2.8 归位",
+    "记忆正文 JSON 化（用户拍板）：真源 multiagents/state/memory/**/*.json，memory/**/*.md 变导出视图；一档=按 ## 切出的节列表，append/set/drop 以节为单位；新增 --file（仿 git commit -F）传长正文；10 档迁移非空差异 0；并发 append 实测双保留",
+    "memory --file/--text 改为按 Markdown 解析输入：文内 ## 标题即节标题（修掉上一节标题重复的真 bug），append 可一次多节，preamble 归位，set 限单节",
+    {
+      "t": "2026-10-17T17:21:51+08:00",
+      "e": "新增 report（正文由 agent 给、脚本只落盘）与 me/new（身份获取一步做完）；实测 MCP 旧进程持迁移前路径致 start_emulator ENOENT"
+    },
+    {
+      "t": "2026-10-17T17:35:27+08:00",
+      "e": "生成 agent 03_helper（角色 helper）"
+    },
+    {
+      "t": "2026-10-17T17:57:17+08:00",
+      "e": "生成 agent 00_haruhi（角色 haruhi）"
+    }
+  ],
+  "skills": [
+    "multiagent-workflow",
+    "repo-conventions",
+    "plotting-standards",
+    "quant-analysis-rules",
+    "report-writing",
+    "loveplus-emu-ops",
+    "loveplus-nlpplus-guide"
+  ]
+}
